@@ -1,0 +1,38 @@
+<p>Here's the calculator</p>
+<div class="calc-body">
+<div class="calc-screen">
+{{ calc.inBuffer.screen }}
+</div>
+<!--p>Left: {{ calc.inBuffer.left }}</p-->
+<!--p>Operator: {{ calc.inBuffer.operator }}</p-->
+<!--p>Right: {{ calc.inBuffer.right }}</p-->
+<section>
+  <md-button class="md-raised" ng-click="calc.inBuffer.updateBuffer('C')">C</md-button>
+  <md-button class="md-raised" ng-click="calc.inBuffer.updateBuffer('pm')">&plusmn;</md-button>
+  <md-button class="md-raised" ng-click="calc.inBuffer.updateBuffer('%')">%</md-button>
+  <md-button class="md-raised" ng-click="calc.inBuffer.updateBuffer('/')">&divide;</md-button>
+</section>
+<section>
+  <md-button class="md-raised" ng-click="calc.inBuffer.updateBuffer(7)">7</md-button>
+  <md-button class="md-raised" ng-click="calc.inBuffer.updateBuffer(8)">8</md-button>
+  <md-button class="md-raised" ng-click="calc.inBuffer.updateBuffer(9)">9</md-button>
+  <md-button class="md-raised" ng-click="calc.inBuffer.updateBuffer('*')">&times;</md-button>
+</section>
+<section>
+  <md-button class="md-raised" ng-click="calc.inBuffer.updateBuffer(4)">4</md-button>
+  <md-button class="md-raised" ng-click="calc.inBuffer.updateBuffer(5)">5</md-button>
+  <md-button class="md-raised" ng-click="calc.inBuffer.updateBuffer(6)">6</md-button>
+  <md-button class="md-raised" ng-click="calc.inBuffer.updateBuffer('-')">-</md-button>
+</section>
+<section>
+  <md-button class="md-raised" ng-click="calc.inBuffer.updateBuffer(1)">1</md-button>
+  <md-button class="md-raised" ng-click="calc.inBuffer.updateBuffer(2)">2</md-button>
+  <md-button class="md-raised" ng-click="calc.inBuffer.updateBuffer(3)">3</md-button>
+  <md-button class="md-raised" ng-click="calc.inBuffer.updateBuffer('+')">+</md-button>
+</section>
+<section>
+  <md-button class="md-raised" ng-click="calc.inBuffer.updateBuffer(0)">0</md-button>
+  <md-button class="md-raised" ng-click="calc.inBuffer.updateBuffer('.')">.</md-button>
+  <md-button class="md-raised" ng-click="calc.inBuffer.updateBuffer('=')">=</md-button>
+</section>
+</div>

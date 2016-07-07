@@ -1,10 +1,4 @@
 /*jslint white:true*/
-/*
-issues:
-order of operations
-cap the result of calculations to 10 digits
-get . to work
-*/
 'use strict';
 
 angular.module('myApp.calculator',
@@ -42,22 +36,31 @@ angular.module('myApp.calculator',
   };
 
   self.inBuffer = {
-    left:     'empty',
-    operator: 'empty',
-    right:    'empty',
-    screen:   '0',
-    updateBuffer: function(b) {
-      console.log('expression: ' + this.left + ' ' + this.operator + ' ' + this.right);
+    left  : 'empty',
+    operator : 'empty',
+    right : 'empty',
+    pressed         : 0,
+    buff            : '',
+    currentNumber   : 0,
+    currentBuffer   : '',
+    currentOperator : '',
+    updateBuffer : function(b) {
+      console.log('expresson: ' + this.left + ' ' + this.operator + ' ' + this.right);
       // clear the buffer
       if ( b === 'C' ) {
         this.left = 'empty';
         this.operator = 'empty';
         this.right = 'empty';
 
+        this.buff = '';
+        this.pressed = 'C';
         console.log ('Cleared!!');
+        return {
+          buff : this.buff,
+          pressed : this.pressed
+        };
       }
-// this.right.toString().length
-// this.right.toFixed()
+
       // enter a number
       else if (typeof b === 'number') {
         this.left = this.left;
@@ -65,12 +68,22 @@ angular.module('myApp.calculator',
         if ( this.right === 'empty' ) {
           this.right = b;
         }
-        else if ( this.right.toString().length < 10 ) {
-          this.right = Number(this.right.toString() + b);
+        else {
+          this.right += b;
         }
+
+        this.buff += b.toString();
+        this.pressed = b;
+        console.log (this.buff);
+        return {
+          buff : this.buff,
+          pressed : this.pressed
+        };
       }
 
       // enter an operator
+      // if there is an active operator, replace it
+      // if there is no active operator, add it
       else if ( b.match(signs) ) {
         if ( this.left === 'empty' ) {
           this.left = this.right;
@@ -90,7 +103,10 @@ angular.module('myApp.calculator',
       }
 
       // enter +/-
+      // if no active operator, evaluate buffer *-1
+      // else, evaluate buffer *-1 and append current operator
       else if ( b === 'pm' ) {
+        
         if ( this.left !== 'empty' && this.operator !== 'empty'&& this.right !== 'empty' ) {
           this.left = this.left;
           this.operator = this.operator;
@@ -106,48 +122,68 @@ angular.module('myApp.calculator',
           this.operator = 'empty';
           this.right = this.right * -1;
         }
+
+        this.buff += b.toString();
+        this.pressed = b;
+        console.log (this.buff);
+        return {
+          buff : this.buff,
+          pressed : this.pressed
+        };
       }
 
       // enter =
-      else if ( b === '=' &&
-                this.left     !== 'empty' &&
-                this.operator !== 'empty' &&
-                this.right    !== 'empty' ) {
-        this.right = operate(this.left, this.operator, this.right);
+      // 1) evaluates buffer
+      // 2) replaces buffer and screen with current value
+      else if ( b === '=' ) {
         this.left = 'empty';
         this.operator = 'empty';
+        this.right = operate(this.left, this.operator, this.right);
+
+        this.buff += b.toString();
+        this.pressed = b;
+        console.log(this.buff);
+        return {
+          buff : this.buff,
+          pressed : this.pressed
+        };
       }
 
-      // enter square-root
-      else if ( b === 'root' ) {
-        if ( this.right > 0 ) {
-          this.left = this.left;
-          this.operator = this.operator;
-          this.right = Math.sqrt(this.right);
-        }
+
+
+
+
+
+
+      // enter a %
+      // multiplies current buffer times 0.01
+      // appends the operator if there is one
+      else if ( b === '%' ) {
+        this.buff += b.toString();
+        this.pressed = b;
+        console.log (this.buff);
+        return {
+          buff : this.buff,
+          pressed : this.pressed
+        };
       }
 
 
-      // update the screen
-      if ( this.right === 'empty' ) {
-        if ( this.operator === 'empty' ) {
-          this.screen = '0';
-        }
-        else {
-          this.screen = this.left;
-        }
-      }
-      else {
-        this.screen = this.right;
-      }
-
-      return {
-        left:     this.left,
-        operator: this.operator,
-        right:    this.right,
-        screen:   this.screen
+      // enter .
+      // does nothing if buffer contains a decimal
+      // else adds a decimal to the buffer
+      else if ( b === '.' ) {
+        this.buff += b.toString();
+        this.pressed = b;
+        console.log(this.buff);
+        return {
+          buff : this.buff,
+          pressed : this.pressed
+        };
       }
 
+
+      //
     }
   };
 });

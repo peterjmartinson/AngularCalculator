@@ -1,5 +1,15 @@
 /* app css stylesheet */
+/*
+key color groups:
+  C (red)
+  Numbers, decimal, pm (beige/white)
+  operators (gray/beige)
+screen colors:
+  screen (black)
+  digits (red)
+body (eggshell)
 
+*/
 .menu {
   list-style: none;
   border-bottom: 0.1em solid black;
@@ -27,4 +37,52 @@
 .menu > li:nth-child(1):before {
   content: "";
   padding: 0;
+}
+
+/* calculator styles */
+.primary1 {
+  background-color: #328cc1;
+}
+
+.primary2 {
+  background-color: #1d2731;
+}
+
+.primary3 {
+  background-color: #0b3c5d;
+}
+
+.accent1 {
+  background-color: #d9b310;
+}
+
+.calc-body {
+  width: 280px;
+  height: 410px;
+  padding: 5px 5px 5px 5px; 
+}
+
+.calc-button {
+  font-size: 24px;
+  border: 1px solid black;
+  width: 70px;
+  height: 70px;
+  float: left;
+}
+
+.calc-button:hover {
+  background-color: #d9b310;
+}
+
+.calc-screen {
+  color: #d9b310;
+  text-align: right;
+  vertical-align: middle;
+  font-size: 36px;
+  font-weight: bold;
+  border: 1px solid black;
+  width: auto;
+  height: 50px;
+  margin: auto;
+  padding: 0px 10px 0px 0px;
 }
