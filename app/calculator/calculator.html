@@ -1,38 +1,38 @@
-<div class="calc-body primary2">
-  <div class="calc-screen primary1">
+<div class="calc-body gray-light">
+  <div class="calc-screen black">
     {{ calc.inBuffer.screen }}
   </div>
   <!--p>Left: {{ calc.inBuffer.left }}</p-->
   <!--p>Operator: {{ calc.inBuffer.operator }}</p-->
   <!--p>Right: {{ calc.inBuffer.right }}</p-->
   <div>
-    <button class="calc-button primary3" ng-click="calc.inBuffer.updateBuffer('C')">C</button>
-    <button class="calc-button primary3" ng-click="calc.inBuffer.updateBuffer('pm')">&plusmn;</button>
-    <button class="calc-button primary3" ng-click="calc.inBuffer.updateBuffer('root')">&#8730;</button>
-    <button class="calc-button primary3" ng-click="calc.inBuffer.updateBuffer('/')">&divide;</button>
+    <button class="calc-button accent" ng-click="calc.inBuffer.updateBuffer('C')">C</button>
+    <button class="calc-button gray-dark" ng-click="calc.inBuffer.updateBuffer('pm')">&plusmn;</button>
+    <button class="calc-button gray-dark" ng-click="calc.inBuffer.updateBuffer('root')">&#8730;</button>
+    <button class="calc-button gray-dark" ng-click="calc.inBuffer.updateBuffer('/')">&divide;</button>
   </div>
   <div>
-    <button class="calc-button primary3" ng-click="calc.inBuffer.updateBuffer(7)">7</button>
-    <button class="calc-button primary3" ng-click="calc.inBuffer.updateBuffer(8)">8</button>
-    <button class="calc-button primary3" ng-click="calc.inBuffer.updateBuffer(9)">9</button>
-    <button class="calc-button primary3" ng-click="calc.inBuffer.updateBuffer('*')">&times;</button>
+    <button class="calc-button primary" ng-click="calc.inBuffer.updateBuffer(7)">7</button>
+    <button class="calc-button primary" ng-click="calc.inBuffer.updateBuffer(8)">8</button>
+    <button class="calc-button primary" ng-click="calc.inBuffer.updateBuffer(9)">9</button>
+    <button class="calc-button gray-dark" ng-click="calc.inBuffer.updateBuffer('*')">&times;</button>
   </div>
   <div>
-    <button class="calc-button primary3" ng-click="calc.inBuffer.updateBuffer(4)">4</button>
-    <button class="calc-button primary3" ng-click="calc.inBuffer.updateBuffer(5)">5</button>
-    <button class="calc-button primary3" ng-click="calc.inBuffer.updateBuffer(6)">6</button>
-    <button class="calc-button primary3" ng-click="calc.inBuffer.updateBuffer('-')">-</button>
+    <button class="calc-button primary" ng-click="calc.inBuffer.updateBuffer(4)">4</button>
+    <button class="calc-button primary" ng-click="calc.inBuffer.updateBuffer(5)">5</button>
+    <button class="calc-button primary" ng-click="calc.inBuffer.updateBuffer(6)">6</button>
+    <button class="calc-button gray-dark" ng-click="calc.inBuffer.updateBuffer('-')">-</button>
   </div>
   <div>
-    <button class="calc-button primary3" ng-click="calc.inBuffer.updateBuffer(1)">1</button>
-    <button class="calc-button primary3" ng-click="calc.inBuffer.updateBuffer(2)">2</button>
-    <button class="calc-button primary3" ng-click="calc.inBuffer.updateBuffer(3)">3</button>
-    <button class="calc-button primary3" ng-click="calc.inBuffer.updateBuffer('+')">+</button>
+    <button class="calc-button primary" ng-click="calc.inBuffer.updateBuffer(1)">1</button>
+    <button class="calc-button primary" ng-click="calc.inBuffer.updateBuffer(2)">2</button>
+    <button class="calc-button primary" ng-click="calc.inBuffer.updateBuffer(3)">3</button>
+    <button class="calc-button gray-dark" ng-click="calc.inBuffer.updateBuffer('+')">+</button>
   </div>
   <div>
-    <button class="calc-button primary3" style="width:140px"
+    <button class="calc-button primary" style="width:140px"
                                          ng-click="calc.inBuffer.updateBuffer(0)">0</button>
-    <button class="calc-button primary3" ng-click="calc.inBuffer.updateBuffer('.')">.</button>
-    <button class="calc-button primary3" ng-click="calc.inBuffer.updateBuffer('=')">=</button>
+    <button class="calc-button primary" ng-click="calc.inBuffer.updateBuffer('.')">.</button>
+    <button class="calc-button gray-dark" ng-click="calc.inBuffer.updateBuffer('=')">=</button>
   </div>
 </div>

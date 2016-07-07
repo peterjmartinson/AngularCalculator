@@ -40,20 +40,23 @@ body (eggshell)
 }
 
 /* calculator styles */
-.primary1 {
-  background-color: #328cc1;
+.primary {
+  background-color: #107691;
 }
-
-.primary2 {
-  background-color: #1d2731;
+.gray-dark {
+  background-color: #354044;
 }
-
-.primary3 {
-  background-color: #0b3c5d;
+.gray-light {
+  background-color: #f8fafa;
 }
-
-.accent1 {
-  background-color: #d9b310;
+.white {
+  background-color: #ffffff;
+}
+.black {
+  background-color: #000000;
+}
+.accent {
+  background-color: #E97F13;
 }
 
 .calc-body {
@@ -75,7 +78,8 @@ body (eggshell)
 }
 
 .calc-screen {
-  color: #d9b310;
+  background-color: #000000;
+  color: #E97F13;
   text-align: right;
   vertical-align: middle;
   font-size: 36px;
