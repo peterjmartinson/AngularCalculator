@@ -64,28 +64,29 @@ angular.module('myApp.calculator',
         this.operator = this.operator;
         if ( this.right === 'empty' ) {
           this.right = b;
+          this.right = this.right.toString();
         }
         else if ( this.right.toString().length < 10 ) {
-          this.right = Number(this.right.toString() + b);
+          this.right = this.right.toString() + b;
         }
       }
 
       // enter an operator
       else if ( b.match(signs) ) {
         if ( this.left === 'empty' ) {
-          this.left = this.right;
+          this.left = Number(this.right);
           this.operator = b;
           this.right = 'empty';
         }
         else if ( this.left !== 'empty' && this.right !== 'empty' ) {
-          this.left = operate(this.left, this.operator, this.right);
+          this.left = operate(this.left, this.operator, Number(this.right));
           this.operator = b;
           this.right = 'empty';
         }
         else if ( this.left !== 'empty' && this.right === 'empty' ) {
           this.left = this.left;
           this.operator = b;
-          this.right = this.right;
+          this.right = this.right.toString();
         }
       }
 
@@ -94,17 +95,20 @@ angular.module('myApp.calculator',
         if ( this.left !== 'empty' && this.operator !== 'empty'&& this.right !== 'empty' ) {
           this.left = this.left;
           this.operator = this.operator;
-          this.right = this.right * -1;
+          this.right = Number(this.right * -1);
+          this.right = this.right.toString();
         }
         else if ( this.left !== 'empty' && this.operator !== 'empty'&& this.right === 'empty' ) { 
           this.left = this.left;
           this.operator = this.operator;
-          this.right = this.left * -1;
+          this.right = Number(this.left * -1);
+          this.right = this.right.toString();
         }
         else if ( this.left === 'empty' && this.operator === 'empty'&& this.right !== 'empty' ) {
           this.left = 'empty';
           this.operator = 'empty';
-          this.right = this.right * -1;
+          this.right = Number(this.right * -1);
+          this.right = this.right.toString();
         }
       }
 
@@ -113,11 +117,11 @@ angular.module('myApp.calculator',
       // need to leave this.right a string until it gets evaluated or moved
       // to this.left
       else if ( b === '.' ) {
-        if ( Math.round(this.right) === this.right ) {
+        if ( Math.round(Number(this.right)) === Number(this.right) ) {
           console.log('inside the decimal: ' + b);
           this.left = this.left;
           this.operator = this.operator;
-          this.right = Number(this.right.toString() + '\.');
+          this.right = this.right.toString() + '.';
         }
       }
 
@@ -126,7 +130,7 @@ angular.module('myApp.calculator',
                 this.left     !== 'empty' &&
                 this.operator !== 'empty' &&
                 this.right    !== 'empty' ) {
-        this.right = operate(this.left, this.operator, this.right);
+        this.right = operate(this.left, this.operator, Number(this.right));
         this.left = 'empty';
         this.operator = 'empty';
       }
@@ -136,7 +140,8 @@ angular.module('myApp.calculator',
         if ( this.right > 0 ) {
           this.left = this.left;
           this.operator = this.operator;
-          this.right = Math.sqrt(this.right);
+          this.right = Math.sqrt(Number(this.right));
+          this.right = this.right.toString();
         }
       }
 
