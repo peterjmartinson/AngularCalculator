@@ -108,6 +108,19 @@ angular.module('myApp.calculator',
         }
       }
 
+      // enter .
+      // problem here is decimal gets wiped out when converted to Number()
+      // need to leave this.right a string until it gets evaluated or moved
+      // to this.left
+      else if ( b === '.' ) {
+        if ( Math.round(this.right) === this.right ) {
+          console.log('inside the decimal: ' + b);
+          this.left = this.left;
+          this.operator = this.operator;
+          this.right = Number(this.right.toString() + '\.');
+        }
+      }
+
       // enter =
       else if ( b === '=' &&
                 this.left     !== 'empty' &&
