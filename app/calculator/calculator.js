@@ -29,7 +29,7 @@ cap the result of calculations to 10 digits
  * 6   D                                 D (regA)
  *
  * b represents the button that has most recently been pressed
- * possible values: 0-9, pm, +-/*, ., root, =
+ * possible values: 0-9, pm, +/-*, ., root, =
  *
  *  A | B | C |aO | pO|
  * ---|---|---|---|---|
@@ -70,13 +70,13 @@ angular.module('myApp.calculator',
     if ( o === '+' ) {
       return l+r;
     }
-    else if ( o === '-' ) {
+    if ( o === '-' ) {
       return l-r;
     }
-    else if ( o === '*' ) {
+    if ( o === '*' ) {
       return l*r;
     }
-    else if ( o === '/' ) {
+    if ( o === '/' ) {
       return l/r;
     }
   };
@@ -195,7 +195,7 @@ angular.module('myApp.calculator',
             this.regB = operate(this.regA, this.pendingOp, operate(this.regB, this.actingOp, this.regC));
             this.actingOp = b;
             this.regA = 'empty';
-            this.regC = 'empty'
+            this.regC = 'empty';
             this.pendingOp = 'empty';
             this.screenFlag = 2;
           }
@@ -220,16 +220,16 @@ angular.module('myApp.calculator',
 //  N | N | N | * | + | -regB
       else if ( b === 'pm' ) {
         if ( this.pendingOp === 'empty' && this.regA !== 'empty' ) {
-          this.regA = Number(this.regA * -1).toString()
+          this.regA = Number(this.regA * -1).toString();
         }
         if ( this.pendingOp === 'empty' && this.regA === 'empty' ) {
-          this.regA = Number(this.regB * -1).toString()
+          this.regA = Number(this.regB * -1).toString();
         }
         if ( this.pendingOp !== 'empty' && this.regB !== 'empty' ) {
-          this.regB = Number(this.regB * -1).toString()
+          this.regB = Number(this.regB * -1).toString();
         }
         if ( this.pendingOp !== 'empty' && this.regB === 'empty' ) {
-          this.regB = Number(this.regC * -1).toString()
+          this.regB = Number(this.regC * -1).toString();
         }
       }
 
@@ -311,16 +311,16 @@ angular.module('myApp.calculator',
       // enter square-root
       else if ( b === 'root' ) {
         if ( this.pendingOp === 'empty' && this.regA !== 'empty' ) {
-          this.regA = Math.sqrt(Number(this.regA)).toString()
+          this.regA = Math.sqrt(Number(this.regA)).toString();
         }
         if ( this.pendingOp === 'empty' && this.regA === 'empty' ) {
-          this.regA = Math.sqrt(Number(this.regB)).toString()
+          this.regA = Math.sqrt(Number(this.regB)).toString();
         }
         if ( this.pendingOp !== 'empty' && this.regB !== 'empty' ) {
-          this.regB = Math.sqrt(Number(this.regB)).toString()
+          this.regB = Math.sqrt(Number(this.regB)).toString();
         }
         if ( this.pendingOp !== 'empty' && this.regB === 'empty' ) {
-          this.regB = Math.sqrt(Number(this.regC)).toString()
+          this.regB = Math.sqrt(Number(this.regC)).toString();
         }
       }
 
@@ -331,14 +331,14 @@ angular.module('myApp.calculator',
           this.screen = '0';
         }
         else {
-          this.screen = this.regA
+          this.screen = this.regA;
         }
       }
       if ( this.screenFlag === 2 ) {
-        this.screen = this.regB
+        this.screen = this.regB;
       }
       if ( this.screenFlag === 3 ) {
-        this.screen = this.regC
+        this.screen = this.regC;
       }
       if ( this.screen.length > 10 ) {
         this.screen = trim(this.screen);
@@ -352,8 +352,8 @@ angular.module('myApp.calculator',
 
       return {
         regA:      this.regA,
-        regA:      this.regA,
-        regA:      this.regA,
+        regB:      this.regB,
+        regC:      this.regC,
         actingOp:  this.actingOp,
         pendingOp: this.pendingOp,
         screen:    this.screen
