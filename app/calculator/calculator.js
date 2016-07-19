@@ -64,13 +64,15 @@ angular.module('myApp.calculator',
   var self = this,
       signs = /[+\-\*\/]/;
 
-  var diag = function (v) {
+  function diag(v) {
     console.log(" type:   " + typeof v);
-    if (typeof v === 'string') { console.log(" length: " + v.length) };
+    if (typeof v === 'string') {
+      console.log(" length: " + v.length);
+    }
     console.log(" value:  " + v);
   }
 
-  var operate = function (l, o, r) {
+  function operate(l, o, r) {
     console.log('About L:');
     diag(l);
     console.log('About O:');
@@ -79,8 +81,6 @@ angular.module('myApp.calculator',
     diag(r);
     l = Number(l);
     r = Number(r);
-    // need to deal with order of operations
-    // for now, just go with first in, first out
     if ( o === '+' ) {
       return (l+r).toString();
     }
@@ -93,9 +93,9 @@ angular.module('myApp.calculator',
     if ( o === '/' ) {
       return (l/r).toString();
     }
-  };
+  }
 
-  var trim = function (val) {
+  function trim(val) {
     if ( val.toString().indexOf('.') < 0 && val.toString().length > 10 ) {
       // no decimal, longer than 10 chars
       val = 'ERROR';
@@ -105,7 +105,7 @@ angular.module('myApp.calculator',
                    Math.pow(10, Math.round(val).toString().length);
     }
     return val;
-  };
+  }
 
   self.inBuffer = {
     regA: 'empty',
@@ -321,8 +321,8 @@ angular.module('myApp.calculator',
         if ( this.pendingOp === 'empty' && this.regA !== 'empty' ) {
           this.regA = Math.sqrt(Number(this.regA)).toString();
         }
-        if ( this.pendingOp === 'empty' && this.regA === 'empty' ) 
-            && this.screenFlag === 2 ) {
+        if ( this.pendingOp === 'empty' && this.regA === 'empty'
+          && this.screenFlag === 2 ) {
           this.regA = Math.sqrt(Number(this.regB)).toString();
         }
         if ( this.pendingOp !== 'empty' && this.regB !== 'empty' ) {
@@ -371,12 +371,14 @@ angular.module('myApp.calculator',
     }
   };
 });
-// need to design some kind of buffer
-// starts clear, but concatenates with button pushes
-// pressing = parses the buffer and outputs the result
-// pressing C re-initializes the buffer
-// each button press appends to current buffer
-// first idea - buffer should just be a simple string
-//   "7+3/20-13"
-// but... if it's a parsed string, I need to design order of operations
-// so, better to use JS's math engine, somehow.
+
+
+
+
+
+
+
+
+
+
+
