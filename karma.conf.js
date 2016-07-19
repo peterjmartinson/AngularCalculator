@@ -10,7 +10,7 @@ module.exports = function(config) {
       'bower_components/angular-mocks/angular-mocks.js',
       'components/**/*.js',
       'view*/**/*.js',
-      'calculator/*.js'
+      'calculator/**/*.js'
     ],
 
     autoWatch: true,

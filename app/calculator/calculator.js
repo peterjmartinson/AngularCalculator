@@ -64,20 +64,34 @@ angular.module('myApp.calculator',
   var self = this,
       signs = /[+\-\*\/]/;
 
+  var diag = function (v) {
+    console.log(" type:   " + typeof v);
+    if (typeof v === 'string') { console.log(" length: " + v.length) };
+    console.log(" value:  " + v);
+  }
+
   var operate = function (l, o, r) {
+    console.log('About L:');
+    diag(l);
+    console.log('About O:');
+    diag(o);
+    console.log('About R:');
+    diag(r);
+    l = Number(l);
+    r = Number(r);
     // need to deal with order of operations
     // for now, just go with first in, first out
     if ( o === '+' ) {
-      return l+r;
+      return (l+r).toString();
     }
     if ( o === '-' ) {
-      return l-r;
+      return (l-r).toString();
     }
     if ( o === '*' ) {
-      return l*r;
+      return (l*r).toString();
     }
     if ( o === '/' ) {
-      return l/r;
+      return (l/r).toString();
     }
   };
 
@@ -107,6 +121,7 @@ angular.module('myApp.calculator',
       
       // ====================== clear the buffer
       if ( b === 'C' ) {
+        this.screenFlag = 1;
         this.regA = 'empty';
         this.regB = 'empty';
         this.regC = 'empty';
@@ -138,13 +153,7 @@ angular.module('myApp.calculator',
           }
         }
       }
-//  A | B | C |aO | pO|
-// ---|---|---|---|---|
-//  0 |   |   |   |   | if ( this.actingOp === 'empty' ) // remember to move the 0
-//    | N |   | + |   | if ( this.actingOp !== 'empty' && this.regA === 'empty' )
-//  N | N |   |+,*|   | if ( this.actingOp !== 'empty' && this.regA !== 'empty' && this.pendingOp === 'empty' ) -> check aO & b
-//  N |   | N | * | + | if ( this.pendingOp !== 'empty' && this.regB === 'empty' ) -> check b
-//  N | N | N | * | + | if ( this.pendingOp !== 'empty' && this.regB !== 'empty' ) -> check b
+
       // ======================= enter an operator
       else if ( b.match(signs) ) {
         // first operator entry
@@ -165,7 +174,7 @@ angular.module('myApp.calculator',
         }
         else if ( this.actingOp !== 'empty' && this.regA !== 'empty' && this.pendingOp === 'empty' ) {
           if ( b === '+' || b === '-' ) {
-            this.regB = operate(this.regA, this.actingOp, this.regB);
+            this.regB = operate(this.regB, this.actingOp, this.regA);
             this.regA = 'empty';
             this.actingOp = b;
             this.screenFlag = 2;
@@ -180,7 +189,7 @@ angular.module('myApp.calculator',
         }
         else if ( this.pendingOp !== 'empty' && this.regB === 'empty' ) {
           if ( b === '+' || b === '-' ) {
-            this.regB = operate(this.regA, this.pendingOp, this.regB);
+            this.regB = operate(this.regB, this.pendingOp, this.regA);
             this.actingOp = b;
             this.pendingOp = 'empty';
             this.screenFlag = 2;
@@ -192,7 +201,7 @@ angular.module('myApp.calculator',
         }
         else if ( this.pendingOp !== 'empty' && this.regB !== 'empty' ) {
           if ( b === '+' || b === '-' ) {
-            this.regB = operate(this.regA, this.pendingOp, operate(this.regB, this.actingOp, this.regC));
+            this.regB = operate(operate(this.regC, this.actingOp, this.regB), this.pendingOp, this.regA);
             this.actingOp = b;
             this.regA = 'empty';
             this.regC = 'empty';
@@ -200,7 +209,7 @@ angular.module('myApp.calculator',
             this.screenFlag = 2;
           }
           if ( b === '*' || b === '/' ) {
-            this.regC = operate(this.regB, this.actingOp, this.regC);
+            this.regC = operate(this.regC, this.actingOp, this.regB);
             this.regB = 'empty';
             this.actingOp = b;
             this.screenFlag = 3;
@@ -250,7 +259,6 @@ angular.module('myApp.calculator',
             }
           }
         }
-
         if ( this.screenFlag === 2 ) {
           // work on regB
           if ( this.regB.indexOf('.') === -1 && this.regB.length < 10 ) {
@@ -278,20 +286,20 @@ angular.module('myApp.calculator',
       else if ( b === '=' ) {
         if ( this.actingOp !== 'empty' && this.regA === 'empty' ) {
           this.regA = this.regB;
-          this.regA = operate(this.regA, this.actingOp, this.regB);
+          this.regA = operate(this.regB, this.actingOp, this.regA);
           this.regB = 'empty';
           this.actingOp = 'empty';
           this.screenFlag = 1;
         }
         else if ( this.actingOp !== 'empty' && this.regA !== 'empty' && this.pendingOp === 'empty' ) {
-          this.regA = operate(this.regA, this.actingOp, this.regB);
+          this.regA = operate(this.regB, this.actingOp, this.regA);
           this.regB = 'empty';
           this.actingOp = 'empty';
           this.screenFlag = 1;
         }
         else if ( this.pendingOp !== 'empty' && this.regB === 'empty' ) {
           this.regB = this.regC;
-          this.regA = operate(this.regA, this.pendingOp, operate(this.regB, this.actingOp, this.regC));
+          this.regB = operate(operate(this.regC, this.actingOp, this.regB), this.pendingOp, this.regA);
           this.regB = 'empty';
           this.regC = 'empty';
           this.actingOp = 'empty';
@@ -299,7 +307,7 @@ angular.module('myApp.calculator',
           this.screenFlag = 1;
         }
         else if ( this.pendingOp !== 'empty' && this.regB !== 'empty' ) {
-          this.regA = operate(this.regA, this.pendingOp, operate(this.regB, this.actingOp, this.regC));
+          this.regB = operate(operate(this.regC, this.actingOp, this.regB), this.pendingOp, this.regA);
           this.regB = 'empty';
           this.regC = 'empty';
           this.actingOp = 'empty';
@@ -313,7 +321,8 @@ angular.module('myApp.calculator',
         if ( this.pendingOp === 'empty' && this.regA !== 'empty' ) {
           this.regA = Math.sqrt(Number(this.regA)).toString();
         }
-        if ( this.pendingOp === 'empty' && this.regA === 'empty' ) {
+        if ( this.pendingOp === 'empty' && this.regA === 'empty' ) 
+            && this.screenFlag === 2 ) {
           this.regA = Math.sqrt(Number(this.regB)).toString();
         }
         if ( this.pendingOp !== 'empty' && this.regB !== 'empty' ) {
